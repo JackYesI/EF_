@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Library" EntityType="Model1.Store.Library" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="autorsSet" EntityType="Model1.Store.autorsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="languagesSet" EntityType="Model1.Store.languagesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="countryesSet" EntityType="Model1.Store.countryesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="autorsbooks" Association="Model1.Store.autorsbooks">
+      <End Role="autors" EntitySet="autorsSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="languagesbooks" Association="Model1.Store.languagesbooks">
+      <End Role="languages" EntitySet="languagesSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="countryeslanguages" Association="Model1.Store.countryeslanguages">
+      <End Role="countryes" EntitySet="countryesSet" />
+      <End Role="languages" EntitySet="languagesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Library">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bookName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="page_count" Type="int" Nullable="false" />
+    <Property Name="autorsId" Type="int" Nullable="false" />
+    <Property Name="languagesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="autorsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="autorName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="autorSurname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="languagesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="languageName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="countryesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="countryesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="country" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="autorsbooks">
+    <End Role="autors" Type="Model1.Store.autorsSet" Multiplicity="1" />
+    <End Role="books" Type="Model1.Store.Library" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="autors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="autorsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="languagesbooks">
+    <End Role="languages" Type="Model1.Store.languagesSet" Multiplicity="1" />
+    <End Role="books" Type="Model1.Store.Library" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="languagesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="countryeslanguages">
+    <End Role="countryes" Type="Model1.Store.countryesSet" Multiplicity="1" />
+    <End Role="languages" Type="Model1.Store.languagesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="countryes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="languages">
+        <PropertyRef Name="countryesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

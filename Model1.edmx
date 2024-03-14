@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Library" EntityType="Model1.Store.Library" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="autorsSet" EntityType="Model1.Store.autorsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="languagesSet" EntityType="Model1.Store.languagesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="countryesSet" EntityType="Model1.Store.countryesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="autorsbooks" Association="Model1.Store.autorsbooks">
+      <End Role="autors" EntitySet="autorsSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="languagesbooks" Association="Model1.Store.languagesbooks">
+      <End Role="languages" EntitySet="languagesSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="countryeslanguages" Association="Model1.Store.countryeslanguages">
+      <End Role="countryes" EntitySet="countryesSet" />
+      <End Role="languages" EntitySet="languagesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Library">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bookName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="page_count" Type="int" Nullable="false" />
+    <Property Name="autorsId" Type="int" Nullable="false" />
+    <Property Name="languagesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="autorsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="autorName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="autorSurname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="languagesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="languageName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="countryesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="countryesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="country" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="autorsbooks">
+    <End Role="autors" Type="Model1.Store.autorsSet" Multiplicity="1" />
+    <End Role="books" Type="Model1.Store.Library" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="autors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="autorsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="languagesbooks">
+    <End Role="languages" Type="Model1.Store.languagesSet" Multiplicity="1" />
+    <End Role="books" Type="Model1.Store.Library" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="languagesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="countryeslanguages">
+    <End Role="countryes" Type="Model1.Store.countryesSet" Multiplicity="1" />
+    <End Role="languages" Type="Model1.Store.languagesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="countryes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="languages">
+        <PropertyRef Name="countryesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Library" EntityType="Model1.books" />
+          <EntitySet Name="autorsSet" EntityType="Model1.autors" />
+          <EntitySet Name="languagesSet" EntityType="Model1.languages" />
+          <EntitySet Name="countryesSet" EntityType="Model1.countryes" />
+          <AssociationSet Name="autorsbooks" Association="Model1.autorsbooks">
+            <End Role="autors" EntitySet="autorsSet" />
+            <End Role="books" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="languagesbooks" Association="Model1.languagesbooks">
+            <End Role="languages" EntitySet="languagesSet" />
+            <End Role="books" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="countryeslanguages" Association="Model1.countryeslanguages">
+            <End Role="countryes" EntitySet="countryesSet" />
+            <End Role="languages" EntitySet="languagesSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bookName" Type="String" Nullable="false" />
+          <Property Name="page_count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="autors" Relationship="Model1.autorsbooks" FromRole="books" ToRole="autors" />
+          <Property Name="autorsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="languages" Relationship="Model1.languagesbooks" FromRole="books" ToRole="languages" />
+          <Property Name="languagesId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="autors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autorName" Type="String" Nullable="false" />
+          <Property Name="autorSurname" Type="String" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="books" Relationship="Model1.autorsbooks" FromRole="autors" ToRole="books" />
+        </EntityType>
+        <EntityType Name="languages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="languageName" Type="String" Nullable="false" />
+          <NavigationProperty Name="books" Relationship="Model1.languagesbooks" FromRole="languages" ToRole="books" />
+          <NavigationProperty Name="countryes" Relationship="Model1.countryeslanguages" FromRole="languages" ToRole="countryes" />
+          <Property Name="countryesId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="countryes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country" Type="String" Nullable="false" />
+          <NavigationProperty Name="languages" Relationship="Model1.countryeslanguages" FromRole="countryes" ToRole="languages" />
+        </EntityType>
+        <Association Name="autorsbooks">
+          <End Type="Model1.autors" Role="autors" Multiplicity="1" />
+          <End Type="Model1.books" Role="books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="autorsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="languagesbooks">
+          <End Type="Model1.languages" Role="languages" Multiplicity="1" />
+          <End Type="Model1.books" Role="books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="languages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="languagesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="countryeslanguages">
+          <End Type="Model1.countryes" Role="countryes" Multiplicity="1" />
+          <End Type="Model1.languages" Role="languages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="countryes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="languages">
+              <PropertyRef Name="countryesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Library">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.books)">
+        <MappingFragment StoreEntitySet="Library">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="bookName" ColumnName="bookName" />
+          <ScalarProperty Name="page_count" ColumnName="page_count" />
+          <ScalarProperty Name="autorsId" ColumnName="autorsId" />
+          <ScalarProperty Name="languagesId" ColumnName="languagesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="autorsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.autors)">
+        <MappingFragment StoreEntitySet="autorsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="autorName" ColumnName="autorName" />
+          <ScalarProperty Name="autorSurname" ColumnName="autorSurname" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="languagesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.languages)">
+        <MappingFragment StoreEntitySet="languagesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="languageName" ColumnName="languageName" />
+          <ScalarProperty Name="countryesId" ColumnName="countryesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="countryesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.countryes)">
+        <MappingFragment StoreEntitySet="countryesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="country" ColumnName="country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

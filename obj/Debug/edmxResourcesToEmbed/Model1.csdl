@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Library" EntityType="Model1.books" />
+    <EntitySet Name="autorsSet" EntityType="Model1.autors" />
+    <EntitySet Name="languagesSet" EntityType="Model1.languages" />
+    <EntitySet Name="countryesSet" EntityType="Model1.countryes" />
+    <AssociationSet Name="autorsbooks" Association="Model1.autorsbooks">
+      <End Role="autors" EntitySet="autorsSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="languagesbooks" Association="Model1.languagesbooks">
+      <End Role="languages" EntitySet="languagesSet" />
+      <End Role="books" EntitySet="Library" />
+    </AssociationSet>
+    <AssociationSet Name="countryeslanguages" Association="Model1.countryeslanguages">
+      <End Role="countryes" EntitySet="countryesSet" />
+      <End Role="languages" EntitySet="languagesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="books">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bookName" Type="String" Nullable="false" />
+    <Property Name="page_count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="autors" Relationship="Model1.autorsbooks" FromRole="books" ToRole="autors" />
+    <Property Name="autorsId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="languages" Relationship="Model1.languagesbooks" FromRole="books" ToRole="languages" />
+    <Property Name="languagesId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="autors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="autorName" Type="String" Nullable="false" />
+    <Property Name="autorSurname" Type="String" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="books" Relationship="Model1.autorsbooks" FromRole="autors" ToRole="books" />
+  </EntityType>
+  <EntityType Name="languages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="languageName" Type="String" Nullable="false" />
+    <NavigationProperty Name="books" Relationship="Model1.languagesbooks" FromRole="languages" ToRole="books" />
+    <NavigationProperty Name="countryes" Relationship="Model1.countryeslanguages" FromRole="languages" ToRole="countryes" />
+    <Property Name="countryesId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="countryes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="country" Type="String" Nullable="false" />
+    <NavigationProperty Name="languages" Relationship="Model1.countryeslanguages" FromRole="countryes" ToRole="languages" />
+  </EntityType>
+  <Association Name="autorsbooks">
+    <End Type="Model1.autors" Role="autors" Multiplicity="1" />
+    <End Type="Model1.books" Role="books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="autors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="autorsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="languagesbooks">
+    <End Type="Model1.languages" Role="languages" Multiplicity="1" />
+    <End Type="Model1.books" Role="books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="languages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="books">
+        <PropertyRef Name="languagesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="countryeslanguages">
+    <End Type="Model1.countryes" Role="countryes" Multiplicity="1" />
+    <End Type="Model1.languages" Role="languages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="countryes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="languages">
+        <PropertyRef Name="countryesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

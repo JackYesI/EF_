@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Library">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.books)">
+        <MappingFragment StoreEntitySet="Library">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="bookName" ColumnName="bookName" />
+          <ScalarProperty Name="page_count" ColumnName="page_count" />
+          <ScalarProperty Name="autorsId" ColumnName="autorsId" />
+          <ScalarProperty Name="languagesId" ColumnName="languagesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="autorsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.autors)">
+        <MappingFragment StoreEntitySet="autorsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="autorName" ColumnName="autorName" />
+          <ScalarProperty Name="autorSurname" ColumnName="autorSurname" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="languagesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.languages)">
+        <MappingFragment StoreEntitySet="languagesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="languageName" ColumnName="languageName" />
+          <ScalarProperty Name="countryesId" ColumnName="countryesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="countryesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.countryes)">
+        <MappingFragment StoreEntitySet="countryesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="country" ColumnName="country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
